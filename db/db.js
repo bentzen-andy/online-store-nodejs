@@ -1,9 +1,13 @@
 const { Pool } = require('pg');
 const _ = require('lodash');
 
-const { credentials } = require('../.credentials');
+if (process.env.PRODUCTION) {
+  const { credentials } = require('../.credentials');
+  const { connectionString } = credentials.postgres;
+} else {
+  connectionString = process.env.CONNECTION_STRING;
+}
 
-const { connectionString } = credentials.postgres;
 const pool = new Pool({ connectionString });
 
 module.exports = {
