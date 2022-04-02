@@ -2,12 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-let port = 8080;
-let corsOrigin = 'http://localhost:3000';
-if (process.env.PRODUCTION) {
-  port = 443;
-  corsOrigin = 'https://atb-online-store.herokuapp.com';
-}
+const PORT = process.env.PORT || 8080;
+corsOrigin = process.env.PRODUCTION
+  ? 'https://atb-online-store.herokuapp.com'
+  : 'http://localhost:3000';
 
 const errorController = require('./controllers/error');
 
@@ -24,4 +22,4 @@ app.use(routes);
 
 app.use(errorController.get404);
 
-app.listen(8080);
+app.listen(PORT);
