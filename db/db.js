@@ -9,6 +9,9 @@ if (process.env.PRODUCTION) {
     require('../.credentials').credentials.postgres.connectionString;
 }
 
+console.log('connectionString');
+console.log(connectionString);
+
 const pool = new Pool({ connectionString });
 
 module.exports = {
