@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const errorController = require('./controllers/error');
+const routes = require('./routes/routes');
 
 const PORT = process.env.PORT || 8080;
 corsOrigin = process.env.PRODUCTION
@@ -12,15 +14,11 @@ console.log(PORT);
 console.log('corsOrigin');
 console.log(corsOrigin);
 
-const errorController = require('./controllers/error');
-
 const app = express();
+// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(cors({ origin: corsOrigin }));
-
-const routes = require('./routes/routes');
-
-app.use(bodyParser.urlencoded({ extended: false }));
 
 console.log('app.js');
 app.use(routes);
