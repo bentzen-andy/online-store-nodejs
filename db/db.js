@@ -1,23 +1,22 @@
-const { Pool } = require('pg');
-const _ = require('lodash');
+const mongoose = require('mongoose');
 
-let connectionString = '';
-if (process.env.PRODUCTION) {
-  connectionString = process.env.CONNECTION_STRING;
-} else {
-  connectionString =
-    require('../.credentials').credentials.postgres.connectionString;
-}
+const { MONGO_URI } = process.env;
 
-const pool = new Pool({ connectionString });
-
-module.exports = {
-  getProducts: async () => {
-    const { rows } = await pool.query('SELECT * FROM products');
-    return rows.map((row) => {
-      const products = _.mapKeys(row, (v, k) => _.camelCase(k));
-      products.price = parseFloat(products.price.replace(/^\$/, ''));
-      return products;
+exports.connect = () => {
+  // Connecting to the database
+  mongoose
+    .connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // useCreateIndex: true,
+      // useFindAndModify: false,
+    })
+    .then(() => {
+      console.log('Successfully connected to database');
+    })
+    .catch((error) => {
+      console.log('database connection failed. exiting now...');
+      console.error(error);
+      process.exit(1);
     });
-  },
 };

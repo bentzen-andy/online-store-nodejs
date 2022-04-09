@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Product = require('../models/_Product');
 
 exports.postProductToCart = (req, res, next) => {
   console.log('exports.postProductToCart');
