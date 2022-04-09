@@ -1,16 +1,9 @@
-const db = require('../db/_db');
+const mongoose = require('mongoose');
 
-module.exports = class User {
-  constructor(email, hashedPassword) {
-    this.email = email;
-    this.hashedPassword = hashedPassword;
-  }
+const userSchema = new mongoose.Schema({
+  email: { type: String, unique: true },
+  password: { type: String },
+  token: { type: String },
+});
 
-  save() {
-    db.saveUser(this);
-  }
-
-  static findByEmail(email) {
-    return db.findUserByEmail(email);
-  }
-};
+module.exports = mongoose.model('user', userSchema);

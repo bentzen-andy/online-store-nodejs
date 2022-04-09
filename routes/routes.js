@@ -4,13 +4,14 @@ const router = express.Router();
 
 const productsController = require('../controllers/products');
 const cartController = require('../controllers/cart');
-const registrationsController = require('../controllers/registrations');
-const sessionsController = require('../controllers/sessions');
+const registrationController = require('../controllers/registration');
+const loginController = require('../controllers/login');
 
 console.log('routes.js');
 router.get('/products', productsController.getProducts);
+router.post('/registration', registrationController.postUser);
+router.post('/login', loginController.postLogin);
+
 router.post('/cart', cartController.postProductToCart);
-router.post('/registrations', registrationsController.postUser);
-router.post('/sessions', sessionsController.postUserSession);
 
 module.exports = router;
