@@ -1,4 +1,5 @@
 const express = require('express');
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ console.log('routes.js');
 router.get('/products', productsController.getProducts);
 router.post('/registration', registrationController.postUser);
 router.post('/login', loginController.postLogin);
+router.post('/login/check-username', auth, loginController.postCheckUsername);
 
 router.post('/cart', cartController.postProductToCart);
 

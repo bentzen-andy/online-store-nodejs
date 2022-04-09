@@ -47,3 +47,10 @@ exports.postLogin = async (req, res, next) => {
     console.log(err);
   }
 };
+
+exports.postCheckUsername = (req, res, next) => {
+  if (req.user) {
+    const email = req.user.email;
+    return res.status(200).json({ status: 'LOGGED_IN', email });
+  }
+};
