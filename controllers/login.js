@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Cart = require('../models/Cart');
 const { validateEmail } = require('../util/validateEmail');
 
 exports.postLogin = async (req, res, next) => {
@@ -48,9 +49,16 @@ exports.postLogin = async (req, res, next) => {
   }
 };
 
-exports.postCheckUsername = (req, res, next) => {
+exports.postCheckUsername = async (req, res, next) => {
   if (req.user) {
+    console.log(' postCheckUsername - req.user');
+    console.log(req.user);
     const email = req.user.email;
-    return res.status(200).json({ status: 'LOGGED_IN', email });
+    const userID = req.user.user_id;
+    const cart = await Cart.findOne({ owner: userID });
+    const products = cart.products;
+    return res
+      .status(200)
+      .json({ status: 'LOGGED_IN', userID, email, products });
   }
 };
