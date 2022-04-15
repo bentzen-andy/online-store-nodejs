@@ -56,7 +56,8 @@ exports.postCheckUsername = async (req, res, next) => {
     const email = req.user.email;
     const userID = req.user.user_id;
     const cart = await Cart.findOne({ owner: userID });
-    const products = cart.products;
+    let products = null;
+    if (cart) products = cart.products;
     return res
       .status(200)
       .json({ status: 'LOGGED_IN', userID, email, products });
