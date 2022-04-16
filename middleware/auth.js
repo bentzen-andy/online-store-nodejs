@@ -4,7 +4,6 @@ const { TOKEN_KEY } = process.env;
 
 const verifyToken = (req, res, next) => {
   console.log('verifyToken - middleware');
-  // const token = req.cookies.access_token;
 
   const token =
     req.body.accessToken ||
@@ -12,7 +11,6 @@ const verifyToken = (req, res, next) => {
     req.headers['x-access-token'];
 
   if (!token) {
-    // return res.status(403).send('A token is required for authentication');
     return res.status(403).json('A token is required for authentication');
   }
   try {
@@ -27,7 +25,6 @@ const verifyToken = (req, res, next) => {
     console.log('req.user');
     console.log(req.user);
   } catch (err) {
-    // return res.status(401).send('Invalid Token');
     return res.status(401).json('Invalid Token');
   }
   return next();
