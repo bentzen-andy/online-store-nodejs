@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const Cart = require('../models/Cart');
 const { validateEmail } = require('../util/validateEmail');
 
 exports.postUser = async (req, res, next) => {
@@ -43,12 +42,6 @@ exports.postUser = async (req, res, next) => {
     const user = await User.create({
       email: email,
       password: passwordHash,
-    });
-
-    // create shopping cart in the database
-    cart = await Cart.create({
-      owner: user._id,
-      products: [],
     });
 
     // create token
