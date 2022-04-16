@@ -28,9 +28,7 @@ exports.postLogin = async (req, res, next) => {
       user && (await bcrypt.compare(password, user.password));
 
     if (!passwordsMatch) {
-      return res
-        .status(400)
-        .json({ error: 'Email or password does not match.' });
+      return res.status(400).json({ error: 'Invalid email or password.' });
     }
 
     // Create token
