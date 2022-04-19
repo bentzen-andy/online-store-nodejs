@@ -48,8 +48,8 @@ exports.postLogin = async (req, res, next) => {
 
 exports.postCheckUsername = async (req, res, next) => {
   if (req.user) {
-    console.log(' postCheckUsername - req.user');
-    console.log(req.user);
+    // console.log(' postCheckUsername - req.user');
+    // console.log(req.user);
     const email = req.user.email;
     const userID = req.user.user_id;
     return res.status(200).json({ status: 'LOGGED_IN', userID, email });

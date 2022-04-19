@@ -13,7 +13,6 @@ router.get('/products', productsController.getProducts);
 router.post('/registration', registrationController.postUser);
 router.post('/login', loginController.postLogin);
 router.post('/login/check-username', auth, loginController.postCheckUsername);
-
-router.post('/order', ordersController.postOrder);
+router.post('/order', auth, ordersController.postOrder);
 
 module.exports = router;

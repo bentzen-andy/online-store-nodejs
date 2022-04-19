@@ -2,19 +2,19 @@ const Order = require('../models/Order');
 const User = require('../models/User');
 
 exports.postOrder = async (req, res, next) => {
-  console.log('exports.postOrder');
   try {
     // get user input
     let { products, customerInfo } = req.body.order;
 
-    console.log('products');
-    console.log(products);
-    console.log('customerInfo');
-    console.log(customerInfo);
+    let emailAccordingToClient = customerInfo.email;
+    let emailAccordingToJsonWebToken = req.user.email;
 
-    let { email } = customerInfo;
+    if (emailAccordingToClient !== emailAccordingToJsonWebToken) {
+      console.log('ERROR: the tokens do not match');
+      return res.status(401).json('Invalid Token');
+    }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ emailAccordingToJsonWebToken });
     if (!user) return res.status(404).json('Something went wrong.');
 
     let customerID = user._id;
@@ -45,7 +45,7 @@ exports.postOrder = async (req, res, next) => {
       products,
     });
 
-    res.status(201).json({ status: 'created', order });
+    res.status(200).json({ status: 'created', order });
     // save the order to the database
   } catch (err) {
     console.log(err);
