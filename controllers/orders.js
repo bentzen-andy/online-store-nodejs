@@ -10,7 +10,6 @@ exports.postOrder = async (req, res, next) => {
     let emailAccordingToJsonWebToken = req.user.email;
 
     if (emailAccordingToClient !== emailAccordingToJsonWebToken) {
-      console.log('ERROR: the tokens do not match');
       return res.status(401).json('Invalid Token');
     }
 
@@ -47,7 +46,5 @@ exports.postOrder = async (req, res, next) => {
 
     res.status(200).json({ status: 'created', order });
     // save the order to the database
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };

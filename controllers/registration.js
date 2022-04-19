@@ -55,7 +55,5 @@ exports.postUser = async (req, res, next) => {
 
     // return new user
     res.status(201).json({ status: 'created', token });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };

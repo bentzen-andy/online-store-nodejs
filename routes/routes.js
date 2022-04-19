@@ -8,7 +8,6 @@ const registrationController = require('../controllers/registration');
 const loginController = require('../controllers/login');
 const ordersController = require('../controllers/orders');
 
-console.log('routes.js');
 router.get('/products', productsController.getProducts);
 router.post('/registration', registrationController.postUser);
 router.post('/login', loginController.postLogin);
